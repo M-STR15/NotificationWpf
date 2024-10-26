@@ -16,6 +16,7 @@
 
   <ItemGroup>
     <None Remove="Resources\Icons\SVG\bomb.svg" />
+    <None Remove="Resources\Icons\SVG\close.svg" />
     <None Remove="Resources\Icons\SVG\info.svg" />
     <None Remove="Resources\Icons\SVG\success.svg" />
     <None Remove="Resources\Icons\SVG\warning.svg" />
@@ -30,6 +31,7 @@
 
   <ItemGroup>
     <Resource Include="Resources\Icons\SVG\bomb.svg" />
+    <Resource Include="Resources\Icons\SVG\close.svg" />
     <Resource Include="Resources\Icons\SVG\info.svg" />
     <Resource Include="Resources\Icons\SVG\success.svg" />
     <Resource Include="Resources\Icons\SVG\warning.svg" />

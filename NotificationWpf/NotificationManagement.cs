@@ -1,5 +1,4 @@
 ﻿using NotificationWpf.Models;
-using System.Windows.Media;
 using System.Windows;
 using System.Windows.Threading;
 
@@ -7,7 +6,7 @@ namespace NotificationWpf
 {
     public class NotificationManagement
     {
-        internal List<NotificationObject> _notifications { get; set; } = new();
+        internal List<MainViewModel> _notifications { get; set; } = new();
         private DispatcherTimer _timer;
 
         /// <summary>
@@ -26,7 +25,7 @@ namespace NotificationWpf
 
         private void _timer_Tick(object? sender, EventArgs e)
         {
-            var removeItems = new List<NotificationObject>();
+            var removeItems = new List<MainViewModel>();
             foreach (var item in _notifications)
             {
                 if (item.Duration > TimeSpan.FromSeconds(DurationSeconds))
@@ -38,11 +37,12 @@ namespace NotificationWpf
 
             if (removeItems != null && removeItems.Count > 0)
             {
+                var removeItemsCount = removeItems.Count;
                 _notifications.RemoveAll(item => removeItems.Contains(item));
-                foreach (var item in _notifications)
+                foreach (var item in _notifications.OrderBy(x => x.Order))
                 {
-                    item.ViewModel.LocationTop += 200;
-                    item.Window.Top = item.ViewModel.LocationTop;
+                    item.Order -= removeItemsCount;
+                    item.MoveWindowTopDown();
                 }
             }
         }
@@ -54,24 +54,36 @@ namespace NotificationWpf
 
         private void createWindow(eNotificationType typeNotification, string message = "", string title = "")
         {
-            var viewModel = new MainViewModel(typeNotification, message, title);
             var window = new MainWindow();
+            var order = _notifications.Count + 1;
+            var viewModel = new MainViewModel(order, window, typeNotification, message, title, this);
+
             var margin = _notifications.Count > 0 ? 20 : 0;
-
-            viewModel.LocationTop= Convert.ToDouble(SystemParameters.PrimaryScreenHeight - 150 - (_notifications.Count * 100) - margin);
-            viewModel.LocationLeft=Convert.ToDouble(SystemParameters.PrimaryScreenWidth - window.Width - 15);
+            var top = Convert.ToDouble(SystemParameters.PrimaryScreenHeight - window.Height - (_notifications.Count * window.Height) - margin);
+            var left = Convert.ToDouble(SystemParameters.PrimaryScreenWidth - window.Width - 15);
             window.DataContext = viewModel;
-            window.Top = viewModel.LocationTop;
-            window.Left=viewModel.LocationLeft;
+            viewModel.SetLocationWindow(left, top);
 
-            var notObj = new NotificationObject(viewModel, window);
-            _notifications.Add(notObj);
+            _notifications.Add(viewModel);
             window.Show();
         }
 
-        private void closeWindow(NotificationObject notificationObject)
+        private void closeWindow(MainViewModel viewModel)
         {
-            notificationObject.Window.Close();
+            CloseWindow(viewModel.Order);
+        }
+
+        public void CloseWindow(int order)
+        {
+            var modWindow = _notifications.FirstOrDefault(x => x.Order == order);
+            if (modWindow != null)
+                modWindow.Window.Close();
+
+            foreach (var item in _notifications.Where(x => x.Order > order))
+            {
+                item.Order -= 1;
+                item.MoveWindowTopDown();
+            }
         }
     }
 }

@@ -1,5 +1,7 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using NotificationWpf.Helpers;
 using NotificationWpf.Models;
+using System.Windows.Input;
 using System.Windows.Media;
 
 namespace NotificationWpf
@@ -7,17 +9,15 @@ namespace NotificationWpf
     [ObservableObject]
     internal partial class MainViewModel
     {
+        internal DateTime DateTimeCreate { get; private set; }
+        internal TimeSpan Duration { get => (DateTime.Now - DateTimeCreate); }
+        internal int Order { get; set; }
         [ObservableProperty]
         private Brush _color;
 
         [ObservableProperty]
         private string _iconSource;
 
-        [ObservableProperty]
-        private double _locationLeft;
-
-        [ObservableProperty]
-        private double _locationTop;
 
         [ObservableProperty]
         private string _message;
@@ -27,21 +27,25 @@ namespace NotificationWpf
 
         [ObservableProperty]
         private eNotificationType _typeNotification;
-        //internal MainViewModel()
-        //{
-        //    TypeNotification = eNotificationType.Info;
-        //    Message = string.Empty;
-        //    Title = string.Empty;
 
-        //    setColor();
-        //}
+        public MainWindow Window { get; private set; }
 
-        internal MainViewModel(eNotificationType typeNotification, string message = "", string title = "") 
+        public readonly NotificationManagement? _notificationManagement;
+
+        public ICommand CloseWindowsCommand { get; }
+
+        internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "", string title = "", NotificationManagement notificationManagement = null)
         {
+            Order = order;
+            DateTimeCreate = DateTime.Now;
+            Window = window;
+            _notificationManagement = notificationManagement;
             TypeNotification = typeNotification;
             Message = message;
             Title = title;
             setColor();
+
+            CloseWindowsCommand = new RelayCommand(closeWindow);
         }
 
         private void setColor()
@@ -65,6 +69,29 @@ namespace NotificationWpf
                     Color = Brushes.Red;
                     break;
             }
+        }
+
+        private void closeWindow(object parameter)
+        {
+            closeWindow();
+        }
+
+        public void SetLocationWindow(double left, double top)
+        {
+            Window.Left = left;
+            Window.Top = top;
+        }
+
+        public void MoveWindowTopDown()
+        {
+            Window.Top += Window.Height;
+        }
+
+        private void closeWindow()
+        {
+            Window.Close();
+            if (_notificationManagement != null)
+                _notificationManagement.CloseWindow(Order);
         }
     }
 }

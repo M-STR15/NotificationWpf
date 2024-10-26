@@ -6,31 +6,46 @@
     xmlns:local="clr-namespace:NotificationWpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
-    Title="{Binding Title}"
     Width="200"
     Height="100"
     x:ClassModifier="internal"
-    Background="{Binding Color}"
-    ResizeMode="NoResize"
-    Left="{Binding LocationLeft}"
-    WindowStyle="None"
+    Style="{StaticResource MainWindow}"
     mc:Ignorable="d">
-    <Grid>
-        <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="auto" />
-            <ColumnDefinition Width="*" />
-        </Grid.ColumnDefinitions>
-        <svgc:SvgViewbox
-            Width="40"
-            HorizontalAlignment="Center"
-            VerticalAlignment="Center"
-            Margin="10"
-            Source="{Binding IconSource,FallbackValue=Resources/Icons/SVG/success.svg}" />
-        <TextBlock
-            Grid.Column="1"
-            HorizontalAlignment="Stretch"
-            VerticalAlignment="Center"
-            Text="{Binding Message,FallbackValue=Message}"
-            TextWrapping="WrapWithOverflow" />
-    </Grid>
+    <Border
+        Width="200"
+        Height="100"
+        Background="{Binding Color}"
+        CornerRadius="30,30,30,30">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="auto" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+            <Button
+                Grid.ColumnSpan="2"
+                x:Name="CloseApp"
+                Width="15"
+                Height="15"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="10"
+                BorderBrush="Transparent"
+                Background="Transparent"
+                Command="{Binding CloseWindowsCommand}">
+                <svgc:SvgViewbox Source="Resources/Icons/SVG/close.svg" />
+            </Button>
+            <svgc:SvgViewbox
+                Width="40"
+                Margin="10"
+                HorizontalAlignment="Center"
+                VerticalAlignment="Center"
+                Source="{Binding IconSource, FallbackValue=Resources/Icons/SVG/success.svg}" />
+            <TextBlock
+                Grid.Column="1"
+                HorizontalAlignment="Stretch"
+                VerticalAlignment="Center"
+                Text="{Binding Message, FallbackValue=Message}"
+                TextWrapping="WrapWithOverflow" />
+        </Grid>
+    </Border>
 </Window>
