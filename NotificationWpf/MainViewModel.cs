@@ -5,7 +5,7 @@ using System.Windows.Media;
 namespace NotificationWpf
 {
     [ObservableObject]
-    public partial class MainViewModel
+    internal partial class MainViewModel
     {
         [ObservableProperty]
         private eTypeNotification _typeNotification;
@@ -17,7 +17,7 @@ namespace NotificationWpf
         [ObservableProperty]
         private Brush _color;
 
-        public MainViewModel()
+        internal MainViewModel()
         {
             TypeNotification = eTypeNotification.Info;
             Message = string.Empty;
@@ -26,7 +26,7 @@ namespace NotificationWpf
             setColor();
         }
 
-        public MainViewModel(eTypeNotification typeNotification, string message = "", string title = ""):this()
+        internal MainViewModel(eTypeNotification typeNotification, string message = "", string title = "") : this()
         {
             TypeNotification = typeNotification;
             setColor();

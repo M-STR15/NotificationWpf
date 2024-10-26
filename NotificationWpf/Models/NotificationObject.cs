@@ -6,15 +6,15 @@ using System.Threading.Tasks;
 
 namespace NotificationWpf.Models
 {
-    public class NotificationObject
+    internal class NotificationObject
     {
-        public DateTime DateTimeCreate { get; private set; }
-        public MainViewModel ViewModel { get; private set; }
-        public MainWindow Window { get; private set; }
+        internal DateTime DateTimeCreate { get; private set; }
+        internal MainViewModel ViewModel { get; private set; }
+        internal MainWindow Window { get; private set; }
 
-        public TimeSpan Duration { get => (DateTime.Now - DateTimeCreate); }
+        internal TimeSpan Duration { get => (DateTime.Now - DateTimeCreate); }
 
-        public NotificationObject(MainViewModel viewModel, MainWindow window)
+        internal NotificationObject(MainViewModel viewModel, MainWindow window)
         {
             DateTimeCreate = DateTime.Now;
             ViewModel = viewModel;

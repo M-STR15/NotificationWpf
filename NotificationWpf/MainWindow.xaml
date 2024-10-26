@@ -10,7 +10,7 @@
     Height="100"
     ResizeMode="NoResize"
     Background="{Binding Color}"
-    mc:Ignorable="d">
+    mc:Ignorable="d" WindowStyle="None">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*"/>

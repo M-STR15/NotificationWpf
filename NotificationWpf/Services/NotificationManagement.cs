@@ -5,7 +5,7 @@ namespace NotificationWpf.Services
 {
     public class NotificationManagement
     {
-        public List<NotificationObject> _notifications { get; set; } = new();
+        internal List<NotificationObject> _notifications { get; set; } = new();
         private DispatcherTimer _timer;
 
         public NotificationManagement()
