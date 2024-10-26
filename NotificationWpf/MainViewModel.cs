@@ -8,27 +8,39 @@ namespace NotificationWpf
     internal partial class MainViewModel
     {
         [ObservableProperty]
-        private eTypeNotification _typeNotification;
+        private Brush _color;
+
+        [ObservableProperty]
+        private string _iconSource;
+
+        [ObservableProperty]
+        private double _locationLeft;
+
+        [ObservableProperty]
+        private double _locationTop;
+
         [ObservableProperty]
         private string _message;
+
         [ObservableProperty]
         private string _title;
 
         [ObservableProperty]
-        private Brush _color;
+        private eNotificationType _typeNotification;
+        //internal MainViewModel()
+        //{
+        //    TypeNotification = eNotificationType.Info;
+        //    Message = string.Empty;
+        //    Title = string.Empty;
 
-        internal MainViewModel()
-        {
-            TypeNotification = eTypeNotification.Info;
-            Message = string.Empty;
-            Title = string.Empty;
+        //    setColor();
+        //}
 
-            setColor();
-        }
-
-        internal MainViewModel(eTypeNotification typeNotification, string message = "", string title = "") : this()
+        internal MainViewModel(eNotificationType typeNotification, string message = "", string title = "") 
         {
             TypeNotification = typeNotification;
+            Message = message;
+            Title = title;
             setColor();
         }
 
@@ -36,16 +48,20 @@ namespace NotificationWpf
         {
             switch (TypeNotification)
             {
-                case eTypeNotification.Suscaise:
+                case eNotificationType.Success:
                     Color = Brushes.Green;
+                    IconSource = @"\Resources\Icons\SVG\success.svg";
                     break;
-                case eTypeNotification.Info:
+                case eNotificationType.Info:
                     Color = Brushes.Blue;
+                    IconSource = @"\Resources\Icons\SVG\info.svg";
                     break;
-                case eTypeNotification.Warning:
+                case eNotificationType.Warning:
+                    IconSource = @"\Resources\Icons\SVG\warning.svg";
                     Color = Brushes.Orange;
                     break;
-                case eTypeNotification.Error:
+                case eNotificationType.Error:
+                    IconSource = @"\Resources\Icons\SVG\bomb.svg";
                     Color = Brushes.Red;
                     break;
             }

@@ -1,15 +1,9 @@
 ﻿using Ninject;
-using NotificationWpf.Services;
-using System.Configuration;
-using System.Data;
 using System.Windows;
 
 namespace NotificationWpf
 {
-    /// <summary>
-    /// Interaction logic for App.xaml
-    /// </summary>
-    public partial class App : Application
+    internal partial class App : Application
     {
         private IKernel _container;
 
@@ -21,15 +15,13 @@ namespace NotificationWpf
             configureContainer();
 
             var notificationManagement = _container.Get<NotificationManagement>();
-            notificationManagement.Create(Models.eTypeNotification.Suscaise,"test1");
-            Thread.Sleep(1000);
-            notificationManagement.Create(Models.eTypeNotification.Warning, "test2");
+            notificationManagement.Create(Models.eNotificationType.Success, "test1");   
             Thread.Sleep(2000);
-            notificationManagement.Create(Models.eTypeNotification.Warning);
+            notificationManagement.Create(Models.eNotificationType.Warning, "test2");
             Thread.Sleep(2000);
-            notificationManagement.Create(Models.eTypeNotification.Error);
+            notificationManagement.Create(Models.eNotificationType.Info, "test2");
             Thread.Sleep(2000);
-            notificationManagement.Create(Models.eTypeNotification.Warning);
+            notificationManagement.Create(Models.eNotificationType.Error, "test2");
         }
 
         private void configureContainer()

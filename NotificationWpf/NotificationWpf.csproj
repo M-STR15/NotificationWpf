@@ -6,15 +6,33 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <UseWPF>true</UseWPF>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <Title>NotificationWPF</Title>
+    <Description>Tato služba slouží k generování informačních oken. </Description>
+    <AssemblyVersion>1.0.0.0</AssemblyVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+    <Version>1.0.0</Version>
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Resources\Icons\SVG\" />
+    <None Remove="Resources\Icons\SVG\bomb.svg" />
+    <None Remove="Resources\Icons\SVG\info.svg" />
+    <None Remove="Resources\Icons\SVG\success.svg" />
+    <None Remove="Resources\Icons\SVG\warning.svg" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CommunityToolkit.Mvvm" Version="8.3.2" />
     <PackageReference Include="Ninject" Version="3.3.6" />
+    <PackageReference Include="SharpVectors" Version="1.8.4.2" />
+    <PackageReference Include="SharpVectors.Wpf" Version="1.8.4.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Icons\SVG\bomb.svg" />
+    <Resource Include="Resources\Icons\SVG\info.svg" />
+    <Resource Include="Resources\Icons\SVG\success.svg" />
+    <Resource Include="Resources\Icons\SVG\warning.svg" />
   </ItemGroup>
 
 </Project>
