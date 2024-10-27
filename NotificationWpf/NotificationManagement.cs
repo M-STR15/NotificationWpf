@@ -4,7 +4,7 @@ using System.Windows.Threading;
 
 namespace NotificationWpf
 {
-    public class NotificationManagement
+    public class NotificationManagement : IDisposable
     {
         private List<MainViewModel> _notifications { get; set; } = new();
         private DispatcherTimer _timer;
@@ -44,7 +44,10 @@ namespace NotificationWpf
                     scrollAllOrhersWindowsOver(item.Order);
 
                     if (item.IsWindowClose())
+                    {
+                        item.CloseWindowHandler -= onCloseWindowHandler;
                         _notifications.Remove(item);
+                    }
                 }
             }
         }
@@ -59,10 +62,22 @@ namespace NotificationWpf
             var window = new MainWindow();
             var order = _notifications.Count;
             var viewModel = new MainViewModel(order, window, typeNotification, message);
+            viewModel.CloseWindowHandler += onCloseWindowHandler;
 
             _notifications.Add(viewModel);
             setWindows(window, viewModel);
             window.Show();
+        }
+
+        private void onCloseWindowHandler(object sender, EventArgs args)
+        {
+            var viewModel= (MainViewModel)sender;
+            var item = _notifications.FirstOrDefault(x => x.Order == viewModel.Order);
+            if (item != null)
+            { 
+                _notifications.Remove(item);
+                scrollAllOrhersWindowsOver(viewModel.Order);
+            }
         }
 
         private void setWindows(MainWindow window, MainViewModel viewModel)
@@ -76,6 +91,15 @@ namespace NotificationWpf
             foreach (var item in _notifications.Where(x => x.Order > order))
             {
                 item.ScrollInDisplayed();
+            }
+        }
+
+        public void Dispose()
+        {
+            foreach (var item in _notifications)
+            {
+                item.CloseWindowHandler -= onCloseWindowHandler;
+                item.CloseWindow();
             }
         }
     }

@@ -36,6 +36,13 @@ namespace NotificationWpf
 
         private MainWindow _window { get; set; }
 
+        public EventHandler CloseWindowHandler { get; set; }
+
+        private void onCloseWindowChange()
+        {
+            CloseWindowHandler.Invoke(this, EventArgs.Empty);
+        }
+
         public ICommand CloseWindowsCommand { get; }
 
         internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "")
@@ -88,7 +95,11 @@ namespace NotificationWpf
             }
         }
 
-        private void closeWindow(object parameter) => CloseWindow();
+        private void closeWindow(object parameter)
+        {
+            onCloseWindowChange();
+            CloseWindow();
+        }
 
         private void setLocationWindow()
         {
