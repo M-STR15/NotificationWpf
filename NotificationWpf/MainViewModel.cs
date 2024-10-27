@@ -10,7 +10,6 @@ namespace NotificationWpf
     [ObservableObject]
     internal partial class MainViewModel
     {
-        internal Guid GuidId { get; private set; }
         internal DateTime DateTimeCreate { get; private set; }
         internal TimeSpan Duration { get => (DateTime.Now - DateTimeCreate); }
         internal int Order { get; private set; }
@@ -81,7 +80,7 @@ namespace NotificationWpf
 
         internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "", int width = 200, int height = 60, int framing = 5, int cornerRadius = 30)
         {
-          
+
             _cornerRadius = new CornerRadius(cornerRadius);
             _framing = framing;
             _height = height;
@@ -91,15 +90,12 @@ namespace NotificationWpf
 
             Color = Brushes.LightGray;
 
-            GuidId = Guid.NewGuid();
             Order = order;
             DateTimeCreate = DateTime.Now;
             _window = window;
             TypeNotification = typeNotification;
             Message = message;
             setDesignWindow();
-
-            //CloseWindowsCommand = new RelayCommand(closeWindow);
 
             setStartPositionWindow();
         }
@@ -115,25 +111,26 @@ namespace NotificationWpf
 
         private void setDesignWindow()
         {
+            var locationIcons = @"\Resources\Icons\SVG\";
             switch (TypeNotification)
             {
                 case eNotificationType.Success:
                     Color = Brushes.LightGreen;
-                    IconSource = @"\Resources\Icons\SVG\success.svg";
+                    IconSource = string.Join(locationIcons, "success.svg");
                     break;
 
                 case eNotificationType.Info:
                     Color = Brushes.LightBlue;
-                    IconSource = @"\Resources\Icons\SVG\info.svg";
+                    IconSource = string.Join(locationIcons, "info.svg");
                     break;
 
                 case eNotificationType.Warning:
-                    IconSource = @"\Resources\Icons\SVG\warning.svg";
+                    IconSource = string.Join(locationIcons, "warning.svg");
                     Color = Brushes.Orange;
                     break;
 
                 case eNotificationType.Error:
-                    IconSource = @"\Resources\Icons\SVG\bomb.svg";
+                    IconSource = string.Join(locationIcons, "bomb.svg");
                     Color = Brushes.Tomato;
                     break;
             }
