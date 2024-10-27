@@ -15,27 +15,21 @@ namespace NotificationWpf
             configureContainer();
 
             var notificationManagement = _container.Get<NotificationManagement>();
-            notificationManagement.Create(Models.eNotificationType.Success, "test1");
+
+            var id = 0;
+            notificationManagement.Create(Models.eNotificationType.Success, "test" + ++id);
             //Thread.Sleep(2000);
-            notificationManagement.Create(Models.eNotificationType.Warning, "test2");
+            notificationManagement.Create(Models.eNotificationType.Warning, "test" + ++id);
             //Thread.Sleep(2000);
-            notificationManagement.Create(Models.eNotificationType.Info, "test3");
+            notificationManagement.Create(Models.eNotificationType.Info, "test" + ++id);
             //Thread.Sleep(2000);
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
 
 
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
-            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            for (var i = 0; i < 190; i++)
+            {
+                notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
+            }
         }
 
         private void configureContainer()

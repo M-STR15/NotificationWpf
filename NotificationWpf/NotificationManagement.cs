@@ -60,7 +60,7 @@ namespace NotificationWpf
             var order = _notifications.Count + 1;
             var viewModel = new MainViewModel(order, window, typeNotification, message, title, this);
             var sizePadding = 8;
-            var maxOnColum = Math.Floor(SystemParameters.Windo.Width / window.Width);
+            var maxOnColum = Math.Floor(SystemParameters.WorkArea.Height / (window.Height+ sizePadding));
             var lim = Math.Floor(_notifications.Count / maxOnColum);
             var col = lim + 1;
             var row = (_notifications.Count + 1) - maxOnColum * lim;
