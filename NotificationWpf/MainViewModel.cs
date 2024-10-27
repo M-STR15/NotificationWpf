@@ -81,7 +81,7 @@ namespace NotificationWpf
 
         internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "", int width = 200, int height = 60, int framing = 5, int cornerRadius = 30)
         {
-            
+          
             _cornerRadius = new CornerRadius(cornerRadius);
             _framing = framing;
             _height = height;

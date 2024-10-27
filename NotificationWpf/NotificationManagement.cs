@@ -19,6 +19,14 @@ namespace NotificationWpf
         private int _cornerRadius;
         private int _framing;
 
+        /// <summary>
+        /// Konfigurátor pro nastavení základních parametrů pro notifikační okna.
+        /// </summary>
+        /// <param name="durationSeconds">Jak dlouho má být okno zobrazeno.</param>
+        /// <param name="width">Šířka vyskakovacího okna.</param>
+        /// <param name="height">Výška vyskakovacího okna.</param>
+        /// <param name="framing">Orámování vyskakovacího okna,</param>
+        /// <param name="cornerRadius">Zaoblení vyskakovacích oken.</param>
         public NotificationManagement(int durationSeconds = 5, int width = 200, int height = 60, int framing = 5, int cornerRadius = 30)
         {
             DurationSeconds = durationSeconds;
@@ -60,7 +68,11 @@ namespace NotificationWpf
                 }
             }
         }
-
+        /// <summary>
+        /// Methoda pro vytvoření vyskakovacího okna
+        /// </summary>
+        /// <param name="typeNotification">Zvolení typu vyskakovacího okna, podle toho bude nastavený design.</param>
+        /// <param name="message">zpráva co bude zobrazena ve vyskakovacím okně.</param>
         public void Create(eNotificationType typeNotification, string message = "")
         {
             createWindow(typeNotification, message);
