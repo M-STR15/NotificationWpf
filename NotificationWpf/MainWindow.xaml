@@ -13,20 +13,21 @@
     mc:Ignorable="d">
     <Grid
         x:Name="MainGrid"
-        Width="200"
-        Height="60"
-        Margin="5"
+        Width="{Binding Width, FallbackValue=200}"
+        Height="{Binding Height, FallbackValue=60}"
+        Margin="{Binding Framing, FallbackValue=5}"
         HorizontalAlignment="Center"
         VerticalAlignment="Center">
         <Border
             Padding="4"
             Background="{StaticResource BorderWindow}"
-            CornerRadius="30,30,30,30">
+            CornerRadius="{Binding CornerRadius, FallbackValue=30}">
             <Border
-                Width="190"
-                Height="50"
+                x:Name="BorderInfo"
+                Width="{Binding WidthBorder, FallbackValue=190}"
+                Height="{Binding HeightBorder, FallbackValue=50}"
                 Background="{Binding Color, FallbackValue=Blue}"
-                CornerRadius="30,30,30,30">
+                CornerRadius="{Binding CornerRadius, FallbackValue=30}">
                 <Grid>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="auto" />

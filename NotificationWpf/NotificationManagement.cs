@@ -14,13 +14,23 @@ namespace NotificationWpf
         /// </summary>
         public int DurationSeconds { get; private set; }
 
-        public NotificationManagement(int durationSeconds = 5)
+        private int _width;
+        private int _height;
+        private int _cornerRadius;
+        private int _framing;
+
+        public NotificationManagement(int durationSeconds = 5, int width = 200, int height = 60, int framing = 5, int cornerRadius = 30)
         {
             DurationSeconds = durationSeconds;
             _timer = new();
             _timer.Interval = TimeSpan.FromMicroseconds(1000);
             _timer.Tick += _timer_Tick;
             _timer.Start();
+
+            _width = width;
+            _height = height;
+            _cornerRadius = cornerRadius;
+            _framing = framing;
         }
 
         private void _timer_Tick(object? sender, EventArgs e)
@@ -60,7 +70,7 @@ namespace NotificationWpf
         {
             var window = new MainWindow();
             var order = _notifications.Count;
-            var viewModel = new MainViewModel(order, window, typeNotification, message);
+            var viewModel = new MainViewModel(order, window, typeNotification, message, _width, _height, _framing, _cornerRadius);
             viewModel.CloseWindowHandler += onCloseWindowHandler;
 
             _notifications.Add(viewModel);

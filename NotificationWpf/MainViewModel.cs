@@ -54,6 +54,20 @@ namespace NotificationWpf
         [ObservableProperty]
         private eNotificationType _typeNotification;
 
+        [ObservableProperty]
+        private int _width;
+        [ObservableProperty]
+        private int _height;
+        [ObservableProperty]
+        private int _framing;
+
+        [ObservableProperty]
+        private int _widthBorder;
+        [ObservableProperty]
+        private int _heightBorder;
+
+        [ObservableProperty]
+        private CornerRadius _cornerRadius;
         private MainWindow _window { get; set; }
 
         internal EventHandler CloseWindowHandler { get; set; }
@@ -65,8 +79,16 @@ namespace NotificationWpf
 
         //public ICommand CloseWindowsCommand { get; }
 
-        internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "")
+        internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "", int width = 200, int height = 60, int framing = 5, int cornerRadius = 30)
         {
+            
+            _cornerRadius = new CornerRadius(cornerRadius);
+            _framing = framing;
+            _height = height;
+            _width = width;
+            _widthBorder = width - (_framing * 2);
+            _heightBorder = height - (_framing * 2);
+
             Color = Brushes.LightGray;
 
             GuidId = Guid.NewGuid();
@@ -128,8 +150,8 @@ namespace NotificationWpf
         {
             if (Row != 0)
             {
-                var top = Convert.ToDouble(SystemParameters.WorkArea.Height - Row * (_window.MainGrid.Height + _sizePadding));
-                var left = Convert.ToDouble(SystemParameters.WorkArea.Width - Column * (_window.MainGrid.Width + _sizePadding));
+                var top = Convert.ToDouble(SystemParameters.WorkArea.Height - Row * Height);
+                var left = Convert.ToDouble(SystemParameters.WorkArea.Width - Column * Width);
 
                 _window.Left = left;
                 _window.Top = top;

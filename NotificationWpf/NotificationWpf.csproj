@@ -12,7 +12,7 @@
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0</Version>
-    <PackageIcon>notification_128x128.png</PackageIcon>
+    <PackageIcon></PackageIcon>
     <Company>M-Str</Company>
     <Authors>M-Str</Authors>
     <PackageTags>WPF Notification</PackageTags>
@@ -54,7 +54,7 @@
     <None Update="Resources\notification_128x128.png">
       <Pack>True</Pack>
       <PackagePath>\</PackagePath>
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
   </ItemGroup>
 
