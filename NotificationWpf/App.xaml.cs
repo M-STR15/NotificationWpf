@@ -14,22 +14,22 @@ namespace NotificationWpf
 
             configureContainer();
 
-            var notificationManagement = _container.Get<NotificationManagement>();
+            //var notificationManagement = _container.Get<NotificationManagement>();
 
-            var id = 0;
-            notificationManagement.Create(Models.eNotificationType.Success, "test" + ++id);
-            //Thread.Sleep(2000);
-            notificationManagement.Create(Models.eNotificationType.Warning, "test" + ++id);
-            //Thread.Sleep(2000);
-            notificationManagement.Create(Models.eNotificationType.Info, "test" + ++id);
-            //Thread.Sleep(2000);
-            notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
+            //var id = 0;
+            //notificationManagement.Create(Models.eNotificationType.Success, "test" + ++id);
+            ////Thread.Sleep(2000);
+            //notificationManagement.Create(Models.eNotificationType.Warning, "test" + ++id);
+            ////Thread.Sleep(2000);
+            //notificationManagement.Create(Models.eNotificationType.Info, "test" + ++id);
+            ////Thread.Sleep(2000);
+            //notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
 
-            for (var i = 0; i < 20; i++)
-            {
-                notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
-                Thread.Sleep(1000);
-            }
+            //for (var i = 0; i < 20; i++)
+            //{
+            //    notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
+            //    Thread.Sleep(1000);
+            //}
         }
 
         private void configureContainer()
