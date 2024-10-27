@@ -14,12 +14,29 @@ namespace NotificationWpf
         internal DateTime DateTimeCreate { get; private set; }
         internal TimeSpan Duration { get => (DateTime.Now - DateTimeCreate); }
         internal int Order { get; private set; }
-        [ObservableProperty]
-        private int _row;
-        [ObservableProperty]
-        private int _column;
 
-        private readonly int _sizePadding = 8;
+        private int _row;
+        protected int Row
+        {
+            get => _row;
+            set
+            {
+                _row = value;
+                setLocationWindow();
+            }
+        }
+        private int _column;
+        protected int Column
+        {
+            get => _column;
+            set
+            {
+                _column = value;
+                setLocationWindow();
+            }
+        }
+
+        private readonly int _sizePadding = 0;
         private int _maxRowsOnColum;
         [ObservableProperty]
         private Brush _color;
@@ -55,7 +72,7 @@ namespace NotificationWpf
             _window = window;
             TypeNotification = typeNotification;
             Message = message;
-            setColor();
+            setDesignWindow();
 
             CloseWindowsCommand = new RelayCommand(closeWindow);
 
@@ -64,15 +81,14 @@ namespace NotificationWpf
 
         private void setStartPositionWindow()
         {
-            _maxRowsOnColum = Convert.ToInt16(Math.Floor(SystemParameters.WorkArea.Height / (_window.Height + _sizePadding)));
+            _maxRowsOnColum = Convert.ToInt16(Math.Floor(SystemParameters.WorkArea.Height / (_window.MainGrid.Height + _sizePadding)));
             var lim = Order / _maxRowsOnColum;
-            Column = Convert.ToInt16(lim) + 1;
-            Row = Convert.ToInt16(Order - _maxRowsOnColum * lim) + 1;
 
-            setLocationWindow();
+            Column = Convert.ToInt32(lim) + 1;
+            Row = Convert.ToInt32(Order - _maxRowsOnColum * lim) + 1;
         }
 
-        private void setColor()
+        private void setDesignWindow()
         {
             switch (TypeNotification)
             {
@@ -103,16 +119,15 @@ namespace NotificationWpf
 
         private void setLocationWindow()
         {
-            var top = Convert.ToDouble(SystemParameters.WorkArea.Height - Row * (_window.Height + _sizePadding));
-            var left = Convert.ToDouble(SystemParameters.WorkArea.Width - Column * (_window.Width + _sizePadding));
+            if (Row != 0)
+            {
+                var top = Convert.ToDouble(SystemParameters.WorkArea.Height - Row * (_window.MainGrid.Height + _sizePadding));
+                var left = Convert.ToDouble(SystemParameters.WorkArea.Width - Column * (_window.MainGrid.Width + _sizePadding));
 
-            _window.Left = left;
-            _window.Top = top;
+                _window.Left = left;
+                _window.Top = top;
+            }
         }
-
-        private void moveWindowDown() => _window.Top += _window.Height;
-
-        private void moveWindowRight() => _window.Left += _window.Width;
 
         public void ScrollInDisplayed()
         {
@@ -121,13 +136,12 @@ namespace NotificationWpf
             {
                 Column -= 1;
                 Row = _maxRowsOnColum;
-                moveWindowRight();
-                moveWindowDown();
+                setLocationWindow();
             }
             else
             {
                 Row -= 1;
-                moveWindowDown();
+                setLocationWindow();
             }
         }
 

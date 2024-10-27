@@ -9,7 +9,7 @@
         <SolidColorBrush x:Key="BorderWindow" Color="LightGray" />
 
         <Style x:Key="MainWindow" TargetType="Window">
-            <Setter Property="Focusable" Value="True" />
+            <!--<Setter Property="Focusable" Value="True" />-->
             <Setter Property="SizeToContent" Value="WidthAndHeight" />
             <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
             <Setter Property="AllowsTransparency" Value="True" />
@@ -20,14 +20,9 @@
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="Window">
-                        <Border
-                            Padding="4"
-                            Background="{StaticResource BorderWindow}"
-                            CornerRadius="30,30,30,30">
-                            <Grid>
-                                <ContentPresenter Content="{TemplateBinding Content}" />
-                            </Grid>
-                        </Border>
+                        <Grid>
+                            <ContentPresenter Content="{TemplateBinding Content}" />
+                        </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
