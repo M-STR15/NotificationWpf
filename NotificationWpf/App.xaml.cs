@@ -26,9 +26,10 @@ namespace NotificationWpf
             notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
 
 
-            for (var i = 0; i < 190; i++)
+            for (var i = 0; i < 20; i++)
             {
                 notificationManagement.Create(Models.eNotificationType.Error, "test" + ++id);
+                Thread.Sleep(1000);
             }
         }
 
@@ -37,7 +38,7 @@ namespace NotificationWpf
             _container = new StandardKernel();
 
             _container.Bind<NotificationManagement>().To<NotificationManagement>().InSingletonScope()
-                .WithConstructorArgument("durationSeconds", 15);
+                .WithConstructorArgument("durationSeconds", 45);
         }
     }
 

@@ -1,19 +1,19 @@
 ﻿using NotificationWpf.Models;
-using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace NotificationWpf
 {
     public class NotificationManagement
     {
-        internal List<MainViewModel> _notifications { get; set; } = new();
+        private List<MainViewModel> _notifications { get; set; } = new();
         private DispatcherTimer _timer;
 
         /// <summary>
         /// Proměná na nastavení délky zobrazení okna.
         /// Výchozí nastavení je na 5s.
         /// </summary>
-        public int DurationSeconds { get; set; }
+        public int DurationSeconds { get; private set; }
         public NotificationManagement(int durationSeconds = 5)
         {
             DurationSeconds = durationSeconds;
@@ -27,69 +27,55 @@ namespace NotificationWpf
         private void _timer_Tick(object? sender, EventArgs e)
         {
             var removeItems = new List<MainViewModel>();
+            var durationSecond = TimeSpan.FromSeconds(DurationSeconds);
             foreach (var item in _notifications)
             {
-                if (item.Duration > TimeSpan.FromSeconds(DurationSeconds))
+                if (item.Duration > durationSecond)
                 {
-                    closeWindow(item);
+                    item.CloseWindow();
                     removeItems.Add(item);
                 }
             }
 
             if (removeItems != null && removeItems.Count > 0)
             {
-                var removeItemsCount = removeItems.Count;
-                _notifications.RemoveAll(item => removeItems.Contains(item));
-                foreach (var item in _notifications.OrderBy(x => x.Order))
+                foreach (var item in removeItems)
                 {
-                    item.Order -= removeItemsCount;
-                    item.MoveWindowDown();
+                    scrollAllOrhersWindowsOver(item.Order);
+
+                    if (item.IsWindowClose())
+                        _notifications.Remove(item);
                 }
             }
         }
 
-        public void Create(eNotificationType typeNotification, string message = "", string title = "")
+        public void Create(eNotificationType typeNotification, string message = "")
         {
-            createWindow(typeNotification, message, title);
+            createWindow(typeNotification, message);
         }
 
-        private void createWindow(eNotificationType typeNotification, string message = "", string title = "")
+        private void createWindow(eNotificationType typeNotification, string message = "")
         {
             var window = new MainWindow();
-            window.Topmost = true;
-            var order = _notifications.Count + 1;
-            var viewModel = new MainViewModel(order, window, typeNotification, message, title, this);
-            var sizePadding = 8;
-            var maxOnColum = Math.Floor(SystemParameters.WorkArea.Height / (window.Height+ sizePadding));
-            var lim = Math.Floor(_notifications.Count / maxOnColum);
-            var col = lim + 1;
-            var row = (_notifications.Count + 1) - maxOnColum * lim;
-
-            var top = Convert.ToDouble(SystemParameters.WorkArea.Height - row * (window.Height + sizePadding));
-            var left = Convert.ToDouble(SystemParameters.WorkArea.Width - col * (window.Width + sizePadding));
-
-            window.DataContext = viewModel;
-            viewModel.SetLocationWindow(left, top);
+            var order = _notifications.Count;
+            var viewModel = new MainViewModel(order, window, typeNotification, message);
 
             _notifications.Add(viewModel);
+            setWindows(window, viewModel);
             window.Show();
         }
 
-        private void closeWindow(MainViewModel viewModel)
+        private void setWindows(MainWindow window, MainViewModel viewModel)
         {
-            CloseWindow(viewModel.Order);
+            window.Topmost = true;
+            window.DataContext = viewModel;
         }
 
-        public void CloseWindow(int order)
+        private void scrollAllOrhersWindowsOver(int order)
         {
-            var modWindow = _notifications.FirstOrDefault(x => x.Order == order);
-            if (modWindow != null)
-                modWindow.Window.Close();
-
             foreach (var item in _notifications.Where(x => x.Order > order))
             {
-                item.Order -= 1;
-                item.MoveWindowDown();
+                item.ScrollInDisplayed();
             }
         }
     }

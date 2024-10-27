@@ -6,47 +6,58 @@
     xmlns:local="clr-namespace:NotificationWpf"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
+    x:Name="actWin"
     Width="200"
     Height="60"
     x:ClassModifier="internal"
     Style="{StaticResource MainWindow}"
-    x:Name="actWin"
     mc:Ignorable="d">
     <Border
         Width="200"
         Height="60"
         Background="{Binding Color}"
         CornerRadius="30,30,30,30">
-        <Grid >
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <Button
-                Grid.ColumnSpan="2"
-                x:Name="CloseApp"
-                Width="15"
-                Height="15"
-                HorizontalAlignment="Right"
-                VerticalAlignment="Top"
-                Margin="10"
-                BorderBrush="Transparent"
-                Background="Transparent"
-                Command="{Binding CloseWindowsCommand}">
-                <svgc:SvgViewbox Source="Resources/Icons/SVG/close.svg" />
-            </Button>
             <svgc:SvgViewbox
                 Width="40"
                 Margin="10"
                 HorizontalAlignment="Center"
                 VerticalAlignment="Center"
                 Source="{Binding IconSource, FallbackValue=Resources/Icons/SVG/success.svg}" />
-            <TextBlock
-                Grid.Column="1"
-                HorizontalAlignment="Stretch"
-                VerticalAlignment="Center"
-                Text="{Binding Message, FallbackValue=Message}"
-                TextWrapping="WrapWithOverflow" />
+            <StackPanel Grid.Column="1">
+                <TextBlock
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Text="{Binding Row, FallbackValue=Row}"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBlock
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Text="{Binding Column, FallbackValue=Column}"
+                    TextWrapping="WrapWithOverflow" />
+                <TextBlock
+                    HorizontalAlignment="Stretch"
+                    VerticalAlignment="Center"
+                    Text="{Binding Message, FallbackValue=Message}"
+                    TextWrapping="WrapWithOverflow" />
+            </StackPanel>
+            <Button
+                x:Name="CloseApp"
+                Grid.ColumnSpan="2"
+                Width="15"
+                Height="15"
+                Margin="10"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Background="Transparent"
+                BorderBrush="Transparent"
+                Command="{Binding CloseWindowsCommand}">
+                <svgc:SvgViewbox Source="Resources/Icons/SVG/close.svg" />
+            </Button>
         </Grid>
     </Border>
 </Window>
