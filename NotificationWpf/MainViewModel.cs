@@ -53,7 +53,7 @@ namespace NotificationWpf
 
         private MainWindow _window { get; set; }
 
-        public EventHandler CloseWindowHandler { get; set; }
+        internal EventHandler CloseWindowHandler { get; set; }
 
         private void onCloseWindowChange()
         {
@@ -129,7 +129,7 @@ namespace NotificationWpf
             }
         }
 
-        public void ScrollInDisplayed()
+        internal void ScrollInDisplayed()
         {
             Order -= 1;
             if (Row == 1 && Column > 1)
@@ -145,7 +145,7 @@ namespace NotificationWpf
             }
         }
 
-        public void CloseWindow()
+        internal void CloseWindow()
         {
             Order = 0;
             Row = 0;
@@ -154,7 +154,7 @@ namespace NotificationWpf
         }
 
 
-        public bool IsWindowClose()
+        internal bool IsWindowClose()
         {
             try
             {
