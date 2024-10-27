@@ -28,7 +28,8 @@ namespace NotificationWpf
         {
             _container = new StandardKernel();
 
-            _container.Bind<NotificationManagement>().To<NotificationManagement>().InSingletonScope();
+            _container.Bind<NotificationManagement>().To<NotificationManagement>().InSingletonScope()
+                .WithConstructorArgument("durationSeconds", 15);
         }
     }
 

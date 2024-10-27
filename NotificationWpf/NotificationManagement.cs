@@ -13,15 +13,16 @@ namespace NotificationWpf
         /// Proměná na nastavení délky zobrazení okna.
         /// Výchozí nastavení je na 5s.
         /// </summary>
-        public uint DurationSeconds { get; set; }
-        public NotificationManagement()
+        public int DurationSeconds { get; set; }
+        public NotificationManagement(int durationSeconds = 5)
         {
-            DurationSeconds = 15;
+            DurationSeconds = durationSeconds;
             _timer = new();
             _timer.Interval = TimeSpan.FromMicroseconds(1000);
             _timer.Tick += _timer_Tick;
             _timer.Start();
         }
+
 
         private void _timer_Tick(object? sender, EventArgs e)
         {

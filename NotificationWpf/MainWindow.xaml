@@ -7,13 +7,14 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     Width="200"
-    Height="100"
+    Height="60"
     x:ClassModifier="internal"
     Style="{StaticResource MainWindow}"
+    x:Name="actWin"
     mc:Ignorable="d">
     <Border
         Width="200"
-        Height="100"
+        Height="60"
         Background="{Binding Color}"
         CornerRadius="30,30,30,30">
         <Grid >
