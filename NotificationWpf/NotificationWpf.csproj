@@ -8,10 +8,15 @@
     <UseWPF>true</UseWPF>
     <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
     <Title>NotificationWPF</Title>
-    <Description>Tato služba slouží k generování informačních oken. </Description>
+    <Description>Tato služba slouží ke generování informačních oken. </Description>
     <AssemblyVersion>1.0.0.0</AssemblyVersion>
     <FileVersion>1.0.0.0</FileVersion>
     <Version>1.0.0</Version>
+    <PackageIcon>notification_128x128.png</PackageIcon>
+    <Company>M-Str</Company>
+    <Authors>M-Str</Authors>
+    <PackageTags>WPF Notification</PackageTags>
+    <ApplicationIcon>Resources\notification.ico</ApplicationIcon>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,6 +25,10 @@
     <None Remove="Resources\Icons\SVG\info.svg" />
     <None Remove="Resources\Icons\SVG\success.svg" />
     <None Remove="Resources\Icons\SVG\warning.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Resources\notification.ico" />
   </ItemGroup>
 
   <ItemGroup>
@@ -35,6 +44,18 @@
     <Resource Include="Resources\Icons\SVG\info.svg" />
     <Resource Include="Resources\Icons\SVG\success.svg" />
     <Resource Include="Resources\Icons\SVG\warning.svg" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Resources\notification.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+    <None Update="Resources\notification_128x128.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
 
 </Project>
