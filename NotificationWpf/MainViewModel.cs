@@ -3,7 +3,6 @@ using CommunityToolkit.Mvvm.Input;
 using NotificationWpf.Helpers;
 using NotificationWpf.Models;
 using System.Windows;
-using System.Windows.Input;
 using System.Windows.Media;
 
 namespace NotificationWpf
@@ -17,6 +16,7 @@ namespace NotificationWpf
         internal int Order { get; private set; }
 
         private int _row;
+
         protected int Row
         {
             get => _row;
@@ -26,7 +26,9 @@ namespace NotificationWpf
                 setLocationWindow();
             }
         }
+
         private int _column;
+
         protected int Column
         {
             get => _column;
@@ -39,12 +41,12 @@ namespace NotificationWpf
 
         private readonly int _sizePadding = 0;
         private int _maxRowsOnColum;
+
         [ObservableProperty]
         private Brush _color;
 
         [ObservableProperty]
         private string _iconSource;
-
 
         [ObservableProperty]
         private string _message;
@@ -97,20 +99,24 @@ namespace NotificationWpf
                     Color = Brushes.LightGreen;
                     IconSource = @"\Resources\Icons\SVG\success.svg";
                     break;
+
                 case eNotificationType.Info:
                     Color = Brushes.LightBlue;
                     IconSource = @"\Resources\Icons\SVG\info.svg";
                     break;
+
                 case eNotificationType.Warning:
                     IconSource = @"\Resources\Icons\SVG\warning.svg";
                     Color = Brushes.Orange;
                     break;
+
                 case eNotificationType.Error:
                     IconSource = @"\Resources\Icons\SVG\bomb.svg";
                     Color = Brushes.Tomato;
                     break;
             }
         }
+
         [RelayCommand]
         private void CloseWindow(object parameter)
         {
@@ -153,7 +159,6 @@ namespace NotificationWpf
             Column = 0;
             _window.Close();
         }
-
 
         internal bool IsWindowClose()
         {

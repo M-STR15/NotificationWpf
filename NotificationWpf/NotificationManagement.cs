@@ -1,6 +1,4 @@
 ﻿using NotificationWpf.Models;
-using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Threading;
 
 namespace NotificationWpf
@@ -15,6 +13,7 @@ namespace NotificationWpf
         /// Výchozí nastavení je na 5s.
         /// </summary>
         public int DurationSeconds { get; private set; }
+
         public NotificationManagement(int durationSeconds = 5)
         {
             DurationSeconds = durationSeconds;
@@ -23,7 +22,6 @@ namespace NotificationWpf
             _timer.Tick += _timer_Tick;
             _timer.Start();
         }
-
 
         private void _timer_Tick(object? sender, EventArgs e)
         {
@@ -72,10 +70,10 @@ namespace NotificationWpf
 
         private void onCloseWindowHandler(object sender, EventArgs args)
         {
-            var viewModel= (MainViewModel)sender;
+            var viewModel = (MainViewModel)sender;
             var item = _notifications.FirstOrDefault(x => x.Order == viewModel.Order);
             if (item != null)
-            { 
+            {
                 _notifications.Remove(item);
                 scrollAllOrhersWindowsOver(viewModel.Order);
             }
