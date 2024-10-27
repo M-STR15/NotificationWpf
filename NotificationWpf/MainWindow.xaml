@@ -55,7 +55,7 @@
                         VerticalAlignment="Top"
                         Background="Transparent"
                         BorderBrush="Transparent"
-                        Command="{Binding CloseWindowsCommand}">
+                        Command="{Binding CloseWindowCommand}">
                         <svgc:SvgViewbox Source="Resources/Icons/SVG/close.svg" />
                     </Button>
                 </Grid>

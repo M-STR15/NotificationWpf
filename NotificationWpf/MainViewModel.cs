@@ -1,4 +1,5 @@
 ﻿using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 using NotificationWpf.Helpers;
 using NotificationWpf.Models;
 using System.Windows;
@@ -60,7 +61,7 @@ namespace NotificationWpf
             CloseWindowHandler.Invoke(this, EventArgs.Empty);
         }
 
-        public ICommand CloseWindowsCommand { get; }
+        //public ICommand CloseWindowsCommand { get; }
 
         internal MainViewModel(int order, MainWindow window, eNotificationType typeNotification, string message = "")
         {
@@ -74,7 +75,7 @@ namespace NotificationWpf
             Message = message;
             setDesignWindow();
 
-            CloseWindowsCommand = new RelayCommand(closeWindow);
+            //CloseWindowsCommand = new RelayCommand(closeWindow);
 
             setStartPositionWindow();
         }
@@ -110,8 +111,8 @@ namespace NotificationWpf
                     break;
             }
         }
-
-        private void closeWindow(object parameter)
+        [RelayCommand]
+        private void CloseWindow(object parameter)
         {
             onCloseWindowChange();
             CloseWindow();
