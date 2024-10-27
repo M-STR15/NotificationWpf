@@ -16,7 +16,7 @@ namespace NotificationWpf
         public uint DurationSeconds { get; set; }
         public NotificationManagement()
         {
-            DurationSeconds = 5;
+            DurationSeconds = 15;
             _timer = new();
             _timer.Interval = TimeSpan.FromMicroseconds(1000);
             _timer.Tick += _timer_Tick;
@@ -55,12 +55,12 @@ namespace NotificationWpf
         private void createWindow(eNotificationType typeNotification, string message = "", string title = "")
         {
             var window = new MainWindow();
+            window.Topmost = true;
             var order = _notifications.Count + 1;
             var viewModel = new MainViewModel(order, window, typeNotification, message, title, this);
 
-            var margin = _notifications.Count > 0 ? 20 : 0;
-            var top = Convert.ToDouble(SystemParameters.PrimaryScreenHeight - window.Height - (_notifications.Count * window.Height) - margin);
-            var left = Convert.ToDouble(SystemParameters.PrimaryScreenWidth - window.Width - 15);
+            var top = Convert.ToDouble(SystemParameters.WorkArea.Height - (_notifications.Count + 1) * (window.Height + 8));
+            var left = Convert.ToDouble(SystemParameters.WorkArea.Width - window.Width - 8);
             window.DataContext = viewModel;
             viewModel.SetLocationWindow(left, top);
 

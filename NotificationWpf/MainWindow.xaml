@@ -16,7 +16,7 @@
         Height="100"
         Background="{Binding Color}"
         CornerRadius="30,30,30,30">
-        <Grid>
+        <Grid >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="auto" />
                 <ColumnDefinition Width="*" />
