@@ -43,7 +43,7 @@ namespace NotificationWpf
                 foreach (var item in _notifications.OrderBy(x => x.Order))
                 {
                     item.Order -= removeItemsCount;
-                    item.MoveWindowTopDown();
+                    item.MoveWindowDown();
                 }
             }
         }
@@ -59,9 +59,15 @@ namespace NotificationWpf
             window.Topmost = true;
             var order = _notifications.Count + 1;
             var viewModel = new MainViewModel(order, window, typeNotification, message, title, this);
+            var sizePadding = 8;
+            var maxOnColum = Math.Floor(SystemParameters.Windo.Width / window.Width);
+            var lim = Math.Floor(_notifications.Count / maxOnColum);
+            var col = lim + 1;
+            var row = (_notifications.Count + 1) - maxOnColum * lim;
 
-            var top = Convert.ToDouble(SystemParameters.WorkArea.Height - (_notifications.Count + 1) * (window.Height + 8));
-            var left = Convert.ToDouble(SystemParameters.WorkArea.Width - window.Width - 8);
+            var top = Convert.ToDouble(SystemParameters.WorkArea.Height - row * (window.Height + sizePadding));
+            var left = Convert.ToDouble(SystemParameters.WorkArea.Width - col * (window.Width + sizePadding));
+
             window.DataContext = viewModel;
             viewModel.SetLocationWindow(left, top);
 
@@ -83,7 +89,7 @@ namespace NotificationWpf
             foreach (var item in _notifications.Where(x => x.Order > order))
             {
                 item.Order -= 1;
-                item.MoveWindowTopDown();
+                item.MoveWindowDown();
             }
         }
     }

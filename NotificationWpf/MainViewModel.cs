@@ -82,9 +82,14 @@ namespace NotificationWpf
             Window.Top = top;
         }
 
-        public void MoveWindowTopDown()
+        public void MoveWindowDown()
         {
             Window.Top += Window.Height;
+        }
+
+        public void MoveWindowRight()
+        {
+            Window.Left += Window.Width;
         }
 
         private void closeWindow()

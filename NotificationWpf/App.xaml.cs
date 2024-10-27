@@ -22,6 +22,20 @@ namespace NotificationWpf
             notificationManagement.Create(Models.eNotificationType.Info, "test3");
             //Thread.Sleep(2000);
             notificationManagement.Create(Models.eNotificationType.Error, "test4");
+
+
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
+            notificationManagement.Create(Models.eNotificationType.Error, "test4");
         }
 
         private void configureContainer()
