@@ -6,26 +6,6 @@
     xmlns:svgc="http://sharpvectors.codeplex.com/svgc/"
     x:ClassModifier="internal">
     <Application.Resources>
-        <SolidColorBrush x:Key="BorderWindow" Color="LightGray" />
-
-        <Style x:Key="MainWindow" TargetType="Window">
-            <!--<Setter Property="Focusable" Value="True" />-->
-            <Setter Property="SizeToContent" Value="WidthAndHeight" />
-            <Setter Property="ResizeMode" Value="CanResizeWithGrip" />
-            <Setter Property="AllowsTransparency" Value="True" />
-            <Setter Property="WindowStyle" Value="None" />
-            <Setter Property="HorizontalAlignment" Value="Center" />
-            <Setter Property="VerticalAlignment" Value="Center" />
-
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Window">
-                        <Grid>
-                            <ContentPresenter Content="{TemplateBinding Content}" />
-                        </Grid>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
+      
     </Application.Resources>
 </Application>

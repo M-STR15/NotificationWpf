@@ -2,6 +2,7 @@
 using CommunityToolkit.Mvvm.Input;
 using NotificationWpf.Helpers;
 using NotificationWpf.Models;
+using System.IO;
 using System.Windows;
 using System.Windows.Media;
 
@@ -111,26 +112,28 @@ namespace NotificationWpf
 
         private void setDesignWindow()
         {
-            var locationIcons = @"\Resources\Icons\SVG\";
+            var locationIcons = "component/Resources/Icons/SVG/";
+            locationIcons = "pack://application:,,,/NotificationWpf;" + locationIcons;
+
             switch (TypeNotification)
             {
                 case eNotificationType.Success:
                     Color = Brushes.LightGreen;
-                    IconSource = string.Join(locationIcons, "success.svg");
+                    IconSource = locationIcons + "success.svg";
                     break;
 
                 case eNotificationType.Info:
                     Color = Brushes.LightBlue;
-                    IconSource = string.Join(locationIcons, "info.svg");
+                    IconSource = locationIcons + "info.svg";
                     break;
 
                 case eNotificationType.Warning:
-                    IconSource = string.Join(locationIcons, "warning.svg");
+                    IconSource = locationIcons + "warning.svg";
                     Color = Brushes.Orange;
                     break;
 
                 case eNotificationType.Error:
-                    IconSource = string.Join(locationIcons, "bomb.svg");
+                    IconSource = locationIcons + "bomb.svg";
                     Color = Brushes.Tomato;
                     break;
             }
